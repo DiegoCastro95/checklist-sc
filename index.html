@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Checklist SED/SC</title>
+<meta name="description" content="Checklist de estudos para o concurso SED/SC — Professor de Matemática">
+<meta name="theme-color" content="#1D9E75">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Checklist SC">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1D9E75;
+    --green-light: #E1F5EE;
+    --green-dark: #085041;
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --border: rgba(0,0,0,0.09);
+    --text: #1a1a18;
+    --text-muted: #6b6b68;
+    --text-faint: #a0a09d;
+    --radius: 12px;
+    --font: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --safe-top: env(safe-area-inset-top);
+    --safe-bottom: env(safe-area-inset-bottom);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121210;
+      --surface: #1c1c1a;
+      --border: rgba(255,255,255,0.09);
+      --text: #f0ede6;
+      --text-muted: #9a9990;
+      --text-faint: #5a5a56;
+      --green-light: #0a2e22;
+      --blue-light: #0c1e30;
+      --amber-light: #2a1a04;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    overscroll-behavior: none;
+  }
+
+  /* Header */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    padding: calc(var(--safe-top) + 12px) 16px 12px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .app-title {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .app-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+  .reset-btn {
+    font-family: var(--font);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+  .progress-label { font-size: 11px; color: var(--text-muted); font-family: var(--mono); }
+  .progress-count { font-size: 12px; font-weight: 500; color: var(--text); font-family: var(--mono); }
+  .bar-track {
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--green);
+    transition: width 0.35s ease;
+  }
+
+  /* Content */
+  .content {
+    padding: 12px 16px calc(var(--safe-bottom) + 24px);
+  }
+
+  .group {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 14px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .group-header:active { opacity: 0.7; }
+  .group-color {
+    width: 3px;
+    height: 34px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .group-info { flex: 1; min-width: 0; }
+  .group-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .group-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .group-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+  .group-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-weight: 500;
+  }
+  .badge-g1 { background: var(--blue-light); color: var(--blue); }
+  .badge-g2 { background: var(--green-light); color: var(--green-dark); }
+  .badge-g3 { background: var(--amber-light); color: var(--amber); }
+  .group-pct {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-muted);
+  }
+  .chevron {
+    font-size: 10px;
+    color: var(--text-faint);
+    transition: transform 0.2s;
+    margin-left: 2px;
+    flex-shrink: 0;
+  }
+  .chevron.open { transform: rotate(90deg); }
+
+  .group-mini-bar { height: 2px; background: var(--border); }
+  .group-mini-fill { height: 100%; transition: width 0.35s ease; }
+  .fill-g1 { background: var(--blue); }
+  .fill-g2 { background: var(--green); }
+  .fill-g3 { background: var(--amber); }
+
+  .group-body { display: none; padding: 2px 14px 12px; }
+  .group-body.open { display: block; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-faint);
+    margin: 14px 0 6px;
+    padding-bottom: 5px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .item:last-child { border-bottom: none; }
+
+  .item input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    flex-shrink: 0;
+    cursor: pointer;
+    accent-color: var(--green);
+  }
+  .item-label {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .item-label.done {
+    color: var(--text-faint);
+    text-decoration: line-through;
+  }
+
+  /* Install banner */
+  .install-banner {
+    display: none;
+    position: fixed;
+    bottom: calc(var(--safe-bottom) + 16px);
+    left: 16px;
+    right: 16px;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 13px;
+    z-index: 100;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .install-banner.show { display: flex; }
+  .install-banner-text { flex: 1; line-height: 1.4; }
+  .install-banner-text strong { display: block; font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+  .install-btn {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .install-dismiss {
+    background: none;
+    border: none;
+    color: var(--text-faint, #888);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-row">
+    <div>
+      <div class="app-title">Checklist SED/SC</div>
+      <div class="app-sub">Professor de Matemática</div>
+    </div>
+    <button class="reset-btn" onclick="resetAll()">Limpar tudo</button>
+  </div>
+  <div class="progress-info">
+    <span class="progress-label">Progresso geral</span>
+    <span class="progress-count" id="txt-global">0 / 0</span>
+  </div>
+  <div class="bar-track"><div class="bar-fill" id="bar-global" style="width:0%"></div></div>
+</div>
+
+<div class="content" id="groups-container"></div>
+
+<div class="install-banner" id="install-banner">
+  <div class="install-banner-text">
+    <strong>Instalar como app</strong>
+    Adicionar à tela inicial para usar offline
+  </div>
+  <button class="install-btn" id="install-btn">Instalar</button>
+  <button class="install-dismiss" onclick="dismissInstall()">×</button>
+</div>
+
+<script>
+const DATA = [
+  {
+    id:"g1", name:"Grupo 1 — Conhecimentos Gerais",
+    sub:"Bases legais, currículo e temas contemporâneos",
+    badge:"Peso 0,20", badgeClass:"badge-g1", color:"#378ADD", fillClass:"fill-g1",
+    sections:[
+      {label:"Fundamentos Legais",items:[
+        "Constituição Federal de 1988 (Educação, direitos sociais e fundamentais)",
+        "Estatuto da Criança e do Adolescente (ECA)",
+        "Lei de Diretrizes e Bases da Educação Nacional (LDB — Lei 9.394/1996)",
+        "Planos de Educação: PNE e PEE/SC",
+        "Lei Complementar Estadual nº 170/1998 (Sistema Estadual de Educação de SC)",
+        "Regime Jurídico dos Servidores Públicos Civis de SC"
+      ]},
+      {label:"Currículo e Organização Pedagógica",items:[
+        "BNCC: Competências gerais, áreas do conhecimento e etapas",
+        "Proposta Curricular de SC e Currículos Base (Infantil, Fundamental e Médio)",
+        "Educação Profissional e Tecnológica (EPT)",
+        "Avaliação da aprendizagem e institucional"
+      ]},
+      {label:"Diversidade e Direitos Humanos",items:[
+        "Educação inclusiva e especial",
+        "Relações étnico-raciais e história afro-brasileira/indígena",
+        "Convivência escolar, cultura de paz e saúde mental na escola"
+      ]},
+      {label:"Tecnologia e Ética",items:[
+        "Cultura, letramento e cidadania digital",
+        "Inteligência Artificial na educação e LGPD",
+        "Princípios da Administração Pública e Ética no serviço público"
+      ]}
+    ]
+  },
+  {
+    id:"g2", name:"Grupo 2 — Metodologia da Prática Docente",
+    sub:"Como ensinar, teorias e gestão pedagógica",
+    badge:"Peso 0,20", badgeClass:"badge-g2", color:"#1D9E75", fillClass:"fill-g2",
+    sections:[
+      {label:"Teorias e Desenvolvimento",items:[
+        "Teorias: Behaviorismo, Construtivismo, Histórico-Cultural e Histórico-Crítica",
+        "Desenvolvimento cognitivo, socioafetivo, moral e psicomotor"
+      ]},
+      {label:"Didática e Inovação",items:[
+        "Planejamento (anual, sequências didáticas e planos de aula)",
+        "Projeto Político-Pedagógico (PPP)",
+        "Metodologias Ativas: ABP, Ensino Híbrido, Cultura Maker e Gamificação"
+      ]},
+      {label:"Avaliação e Gestão",items:[
+        "Tipos de avaliação: Diagnóstica, formativa e somativa",
+        "Recuperação paralela e indicadores educacionais (aprovação, abandono, Saeb)",
+        "Gestão democrática e desenvolvimento profissional docente"
+      ]}
+    ]
+  },
+  {
+    id:"g3", name:"Grupo 3 — Conhecimentos Específicos",
+    sub:"Matemática e contexto SED/SC",
+    badge:"Peso 0,30", badgeClass:"badge-g3", color:"#BA7517", fillClass:"fill-g3",
+    sections:[
+      {label:"Fundamentos",items:[
+        "Pensamento lógico-matemático e história da Matemática"
+      ]},
+      {label:"Números e Álgebra",items:[
+        "Conjuntos Numéricos: Naturais, inteiros, racionais, irracionais, reais e complexos",
+        "Razão, proporção, regra de três e porcentagens",
+        "Educação financeira",
+        "Álgebra: Polinômios, equações, inequações e sistemas",
+        "Funções: Afim, quadrática, exponencial, logarítmica e trigonométricas",
+        "Matrizes, determinantes e sistemas lineares",
+        "Progressões (PA e PG)"
+      ]},
+      {label:"Geometria e Trigonometria",items:[
+        "Trigonometria: Razões, leis e aplicações",
+        "Geometria Plana e Espacial: Polígonos, áreas, volumes e sólidos",
+        "Geometria Analítica: Ponto, reta e cônicas"
+      ]},
+      {label:"Análise de Dados",items:[
+        "Análise Combinatória e Probabilidade",
+        "Estatística: Medidas de centralidade e dispersão, gráficos e análise de dados"
+      ]},
+      {label:"Didática Específica",items:[
+        "Modelagem matemática e resolução de problemas",
+        "Investigação matemática, materiais manipuláveis e tecnologias digitais no ensino"
+      ]},
+      {label:"Contexto de Santa Catarina",items:[
+        "Organização da SED/SC e Gerências Regionais",
+        "Plano Estadual de Educação e indicadores educacionais locais (Saesc)",
+        "Financiamento (Fundeb) e regime jurídico estadual"
+      ]}
+    ]
+  }
+];
+
+const STATE_KEY = "checklist_sedsc_v1";
+function loadState(){ try{ return JSON.parse(localStorage.getItem(STATE_KEY))||{}; }catch(e){ return {}; } }
+function saveState(s){ try{ localStorage.setItem(STATE_KEY,JSON.stringify(s)); }catch(e){} }
+let state = loadState();
+function itemKey(gid,si,ii){ return `${gid}_${si}_${ii}`; }
+
+function buildUI(){
+  const container = document.getElementById("groups-container");
+  container.innerHTML = "";
+  DATA.forEach(g => {
+    const div = document.createElement("div");
+    div.className = "group";
+    let html = `
+      <div class="group-header" onclick="toggleGroup('${g.id}')">
+        <div class="group-color" style="background:${g.color}"></div>
+        <div class="group-info">
+          <div class="group-name">${g.name}</div>
+          <div class="group-sub">${g.sub}</div>
+        </div>
+        <div class="group-right">
+          <span class="group-badge ${g.badgeClass}">${g.badge}</span>
+          <span class="group-pct" id="pct-${g.id}">0%</span>
+        </div>
+        <span class="chevron" id="chev-${g.id}">▶</span>
+      </div>
+      <div class="group-mini-bar"><div class="group-mini-fill ${g.fillClass}" id="mbar-${g.id}" style="width:0%"></div></div>
+      <div class="group-body" id="body-${g.id}">`;
+    g.sections.forEach((sec,si) => {
+      html += `<div class="section-label">${sec.label}</div>`;
+      sec.items.forEach((item,ii) => {
+        const k = itemKey(g.id,si,ii);
+        const checked = !!state[k];
+        html += `<div class="item">
+          <input type="checkbox" id="cb-${k}" ${checked?"checked":""} onchange="toggle('${g.id}',${si},${ii})">
+          <label class="item-label${checked?" done":""}" for="cb-${k}">${item}</label>
+        </div>`;
+      });
+    });
+    html += `</div>`;
+    div.innerHTML = html;
+    container.appendChild(div);
+  });
+  updateProgress();
+}
+
+function toggleGroup(gid){
+  const body = document.getElementById("body-"+gid);
+  const chev = document.getElementById("chev-"+gid);
+  const open = body.classList.toggle("open");
+  chev.classList.toggle("open", open);
+}
+
+function toggle(gid,si,ii){
+  const k = itemKey(gid,si,ii);
+  const cb = document.getElementById("cb-"+k);
+  const lbl = cb.nextElementSibling;
+  state[k] = cb.checked;
+  lbl.className = "item-label"+(cb.checked?" done":"");
+  saveState(state);
+  updateProgress();
+}
+
+function updateProgress(){
+  let total=0, done=0;
+  DATA.forEach(g => {
+    let gt=0, gd=0;
+    g.sections.forEach((sec,si) => {
+      sec.items.forEach((_,ii) => {
+        gt++; total++;
+        if(state[itemKey(g.id,si,ii)]){ gd++; done++; }
+      });
+    });
+    const pct = gt ? Math.round(gd/gt*100) : 0;
+    document.getElementById("pct-"+g.id).textContent = pct+"%";
+    document.getElementById("mbar-"+g.id).style.width = pct+"%";
+  });
+  const gpct = total ? Math.round(done/total*100) : 0;
+  document.getElementById("bar-global").style.width = gpct+"%";
+  document.getElementById("txt-global").textContent = `${done} / ${total} (${gpct}%)`;
+}
+
+function resetAll(){
+  if(!confirm("Deseja limpar todo o progresso?")) return;
+  state = {};
+  saveState(state);
+  buildUI();
+}
+
+// PWA Install prompt
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if(!localStorage.getItem('install_dismissed')) {
+    document.getElementById('install-banner').classList.add('show');
+  }
+});
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').classList.remove('show');
+});
+function dismissInstall(){
+  document.getElementById('install-banner').classList.remove('show');
+  localStorage.setItem('install_dismissed','1');
+}
+
+// Service Worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js');
+}
+
+buildUI();
+</script>
+</body>
+</html>
